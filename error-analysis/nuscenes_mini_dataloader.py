@@ -57,7 +57,7 @@ def category_to_detection_class(category_name: str) -> Optional[str]:
     return None
 
 
-class BEVFusionDataLoader:
+class NuScenesMiniDataLoader:
     """
     Load matched nuScenes ground truth and saved BEVFusion predictions.
 
@@ -309,23 +309,23 @@ class BEVFusionDataLoader:
         }
 
 
-if __name__ == "__main__":
-    loader = BEVFusionDataLoader()
-    gt_by_token, pred_by_token = loader.load()
+# if __name__ == "__main__":
+#     loader = NuScenesMiniDataLoader()
+#     gt_by_token, pred_by_token = loader.load()
 
-    print(f"Split: {loader.split}")
-    print(f"Samples loaded: {len(gt_by_token)}")
-    print(f"GT annotations loaded: {sum(len(v) for v in gt_by_token.values())}")
-    print(
-        "Predictions loaded: "
-        f"{sum(len(v['scores_3d']) for v in pred_by_token.values())}"
-    )
+#     print(f"Split: {loader.split}")
+#     print(f"Samples loaded: {len(gt_by_token)}")
+#     print(f"GT annotations loaded: {sum(len(v) for v in gt_by_token.values())}")
+#     print(
+#         "Predictions loaded: "
+#         f"{sum(len(v['scores_3d']) for v in pred_by_token.values())}"
+#     )
 
-    first_token = loader.sample_tokens[0]
-    gt, pred = loader.load_sample(first_token)
-    print(f"\nExample sample token: {first_token}")
-    print(f"GT boxes: {len(gt)}")
-    print(f"Prediction boxes: {len(pred['scores_3d'])}")
-    print(f"Raw prediction box shape: {pred['boxes_3d'].shape}")
-    print(f"First GT class: {gt[0]['class_name'] if gt else 'no supported GT'}")
-    print(f"First prediction class: {pred['class_names'][0] if pred['class_names'] else 'none'}")
+#     first_token = loader.sample_tokens[0]
+#     gt, pred = loader.load_sample(first_token)
+#     print(f"\nExample sample token: {first_token}")
+#     print(f"GT boxes: {len(gt)}")
+#     print(f"Prediction boxes: {len(pred['scores_3d'])}")
+#     print(f"Raw prediction box shape: {pred['boxes_3d'].shape}")
+#     print(f"First GT class: {gt[0]['class_name'] if gt else 'no supported GT'}")
+#     print(f"First prediction class: {pred['class_names'][0] if pred['class_names'] else 'none'}")
