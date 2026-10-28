@@ -1,4 +1,6 @@
 from nuscenes_mini_dataloader import NuScenesMiniDataLoader
+from detection_failures import analyze_detection_failures
+
 
 
 def main():
@@ -7,8 +9,17 @@ def main():
     loader = NuScenesMiniDataLoader(split="mini_val")
     ground_truth, predictions = loader.load()
 
-    print(f"GT samples: {len(ground_truth)}")
-    print(f"Prediction samples: {len(predictions)}")
+    # Analyze detection failures
+    results = analyze_detection_failures(
+        ground_truth=ground_truth,
+        predictions=predictions,
+        nusc=loader.nusc,
+    )
+
+    print("Totals:", results["totals"])
+    print("Car results:", results["per_class"]["car"])
+    print("False positives:", len(results["false_positives"]))
+    print("False negatives:", len(results["false_negatives"]))
 
 
 
