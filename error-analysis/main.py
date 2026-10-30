@@ -5,6 +5,7 @@ from detection_failures import (
     sweep_distance_thresholds,
 )
 
+from per_class_report import per_class_breakdown
 
 
 def main():
@@ -31,6 +32,16 @@ def main():
     # 3) Check which conclusions depend on the match radius
     print(sweep_distance_thresholds(ground_truth, predictions, loader.nusc,
                                     score_threshold=0.3))
+
+
+    report_1m = per_class_breakdown(ground_truth, predictions, loader.nusc,
+                                    distance_threshold=1.0, score_threshold=0.3)
+
+    # other radii, same call
+    # per_class_breakdown(ground_truth, predictions, loader.nusc,
+    #                     distance_threshold=2.0, score_threshold=0.3)
+    # per_class_breakdown(ground_truth, predictions, loader.nusc,
+    #                     distance_threshold=4.0, score_threshold=0.3)
 
 
 
